@@ -1,12 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Sudo extends JFrame {
 
     public int[][] puzzle= new int[4][4];
 
-    public void shuffleArray(int[] array) {
+    public void shuffle(int[] array) {
         Random rand = new Random();
         for (int i = array.length - 1; i > 0; i--) {
             int j = rand.nextInt(i + 1);
@@ -18,13 +20,35 @@ public class Sudo extends JFrame {
 
     public void fillDiagonalBoxes() {
         int[] values = {1, 2, 3, 4};
-        shuffleArray(values);
+        shuffle(values);
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 puzzle[i][j] = values[(i + j) % 4];
             }
         }
+    }
+
+    private void removeCells() {
+        Random rand = new Random();
+        int cellsToRemove = rand.nextInt(4) + 10; // Randomly remove cells between 10 and 15
+        int remainingCells = 16 - cellsToRemove;
+
+        while (remainingCells > 0) {
+            int row = rand.nextInt(4);
+            int col = rand.nextInt(4);
+
+            if (puzzle[row][col] != 0) {
+                puzzle[row][col] = 0;
+                remainingCells--;
+            }
+        }
+    }
+
+    public void create()
+    {
+        fillDiagonalBoxes();
+        removeCells();
     }
 
     Sudo() {
@@ -36,7 +60,7 @@ public class Sudo extends JFrame {
 
         JTextField grid[][] = new JTextField[4][4];
 
-        fillDiagonalBoxes();
+        create();
         
         for (int r = 0; r < 4; r++) {
             for (int c = 0; c < 4; c++) 
@@ -47,9 +71,17 @@ public class Sudo extends JFrame {
                 gridPanel.add(grid[r][c]);
             }
         }
+
         
         JPanel buttonpanel = new JPanel();
         JButton solveButton = new JButton("Solve");
+        solveButton.addActionListener(new ActionListener(){
+            
+            public void actionPerformed (ActionEvent e) {
+                create();
+            }
+           
+        });
         buttonpanel.add(solveButton);
         JButton clearButton = new JButton("New");
         buttonpanel.add(clearButton);
