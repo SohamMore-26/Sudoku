@@ -6,28 +6,6 @@ public class Sudo extends JFrame {
 
     public int puzzle[] = {1,2,3,4};
 
-    // void shuffle(int[] array) {
-    //     Random rand = new Random();
-    //     for (int i = array.length - 1; i > 0; i--) {
-    //         int j = rand.nextInt(i + 1);
-    //         int temp = array[i];
-    //         array[i] = array[j];
-    //         array[j] = temp;
-    //     }
-    // }
-
-    // private void fillDiagonalBoxes() {
-    //     int[] values = {1, 2, 3, 4};
-    //     shuffle(values);
-
-    //     for (int i = 0; i < 4; i++) {
-    //         for (int j = 0; j < 4; j++) {
-    //             puzzle[i][j] = values[(i + j) % 4];
-    //         }
-    //     }
-    // }
-
-
 
     Sudo() {
         setSize(500, 500);
