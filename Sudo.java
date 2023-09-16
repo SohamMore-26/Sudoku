@@ -4,8 +4,28 @@ import java.util.Random;
 
 public class Sudo extends JFrame {
 
-    public int puzzle[] = {1,2,3,4};
+    public int[][] puzzle= new int[4][4];
 
+    public void shuffleArray(int[] array) {
+        Random rand = new Random();
+        for (int i = array.length - 1; i > 0; i--) {
+            int j = rand.nextInt(i + 1);
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+
+    public void fillDiagonalBoxes() {
+        int[] values = {1, 2, 3, 4};
+        shuffleArray(values);
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                puzzle[i][j] = values[(i + j) % 4];
+            }
+        }
+    }
 
     Sudo() {
         setSize(500, 500);
@@ -16,24 +36,33 @@ public class Sudo extends JFrame {
 
         JTextField grid[][] = new JTextField[4][4];
 
-        // fillDiagonalBoxes();
-
+        fillDiagonalBoxes();
+        
         for (int r = 0; r < 4; r++) {
-            for (int c = 0; c < 4; c++) {
-                /*
-                 * subPanels[r*c] = new JPanel(new GridLayout(rows, columns));
-                 * subPanels[r*c].setBorder(innerBorder);
-                 * subPanels[r*c].setBackground(Color.WHITE);
-                 * GuiPanel.add(subPanels[r*c]);
-                 */
-
-                grid[r][c] = new JTextField(puzzle[c]);
+            for (int c = 0; c < 4; c++) 
+            {
+                String s=Integer.toString(puzzle[r][c]);
+                grid[r][c] = new JTextField(s);
                 grid[r][c].setHorizontalAlignment(JTextField.CENTER);
                 gridPanel.add(grid[r][c]);
-
             }
-
         }
+        
+        JPanel buttonpanel = new JPanel();
+        JButton solveButton = new JButton("Solve");
+        buttonpanel.add(solveButton);
+        JButton clearButton = new JButton("New");
+        buttonpanel.add(clearButton);
+        JButton checkButton = new JButton("Check");
+        buttonpanel.add(checkButton);
+        add(buttonpanel, BorderLayout.SOUTH);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Sudo game = new Sudo();
+    }
+}
         // JTextField a = new JTextField("1");
         // a.setHorizontalAlignment(JTextField.CENTER);
         // JTextField b = new JTextField("2");
@@ -83,22 +112,3 @@ public class Sudo extends JFrame {
         // gridPanel.add(n);
         // gridPanel.add(o);
         // gridPanel.add(p);
-
-        JPanel buttonpanel = new JPanel();
-        JButton solveButton = new JButton("Solve");
-        buttonpanel.add(solveButton);
-        JButton clearButton = new JButton("New");
-        buttonpanel.add(clearButton);
-        JButton checkButton = new JButton("Check");
-        buttonpanel.add(checkButton);
-
-        add(buttonpanel, BorderLayout.SOUTH);
-
-        setVisible(true);
-
-    }
-
-    public static void main(String[] args) {
-        Sudo game = new Sudo();
-    }
-}
