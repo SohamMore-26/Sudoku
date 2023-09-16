@@ -8,6 +8,7 @@ public class Sudo extends JFrame {
 
     public int[][] puzzle= new int[4][4];
 
+    // shuffle array to help fill cells
     public void shuffle(int[] array) {
         Random rand = new Random();
         for (int i = array.length - 1; i > 0; i--) {
@@ -18,6 +19,7 @@ public class Sudo extends JFrame {
         }
     }
 
+    //sudoku is not accurate only diagonal lines are getting generated 
     public void fillDiagonalBoxes() {
         int[] values = {1, 2, 3, 4};
         shuffle(values);
@@ -29,6 +31,7 @@ public class Sudo extends JFrame {
         }
     }
 
+    //remove cells from sudoku randomly 
     private void removeCells() {
         Random rand = new Random();
         int cellsToRemove = rand.nextInt(4) + 10; // Randomly remove cells between 10 and 15
@@ -62,7 +65,7 @@ public class Sudo extends JFrame {
 
         create();
         
-        for (int r = 0; r < 4; r++) {
+        for (int r = 0; r < 4; r++) { // this loop puts the values onto the jtextfield
             for (int c = 0; c < 4; c++) 
             {
                 String s=Integer.toString(puzzle[r][c]);
@@ -78,7 +81,7 @@ public class Sudo extends JFrame {
         solveButton.addActionListener(new ActionListener(){
             
             public void actionPerformed (ActionEvent e) {
-                create();
+                create(); //doesnt work
             }
            
         });
