@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class Sudo extends JFrame {
 
-    public int[][] puzzle= new int[4][4];
+    public int[][] puzzle= new int[3][4];
 
     // shuffle array to help fill cells
     public void shuffle(int[] array) {
