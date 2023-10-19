@@ -1,7 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 import javax.swing.JFrame;
 
 public class Sudoku {
