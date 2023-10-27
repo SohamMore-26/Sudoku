@@ -1,62 +1,67 @@
 
+// All frontend work for the game is done in this file
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class Panal extends javax.swing.JPanel {
+public class Panal extends JPanel 
+{
 
-    Sudoku game;
-    private JButton nbtn = new JButton("new game");
-    private static JTextField[][] boxes;
+    Sudoku game;  // This is the object of the class we created 
+    private JButton nbtn = new JButton("new game"); // This button defines the button for new game
+    private static JTextField[][] boxes; // This boxes are for numbers
     private JPanel[][] paneles;
     private JPanel center, bPanel;
     private JButton nBtn, cBtn, eBtn, hardBtn, midBtn, easyBtn, slove;
-    private int[][] temp = new int[9][9];
-    private int[][] grid = new int[9][9];
+    private int[][] temp = new int[9][9]; // The array to store temporary grid we created in Sudoku class
+    private int[][] grid = new int[9][9]; // the array to store grid we created in Sudoku class
 
 
-    public JTextField newtextfield() {
+    public JTextField newtextfield() 
+    {
         JTextField j = new JTextField("");
-        j.setBorder(BorderFactory.createLineBorder(Color.lightGray));
-        j.setFont(new Font(Font.DIALOG, Font.PLAIN, 25));
-        j.setHorizontalAlignment(JTextField.CENTER);
-        /*-------------------mouse lisner----------------*/
-        j.addMouseListener(new MouseAdapter() {
+        j.setBorder(BorderFactory.createLineBorder(Color.lightGray)); // To create a thin lightgray border around the boxes in game
+        j.setFont(new Font(Font.DIALOG, Font.PLAIN, 25)); // Set the font for the game
+        j.setHorizontalAlignment(JTextField.CENTER); // To allign the JTextField we created in center
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (j.isEditable()) {
+        /*-------------------mouse lisner----------------*/
+
+        j.addMouseListener(new MouseAdapter() // Here we reregistered the mouse listener for the JTextField
+        {
+
+            public void mouseEntered(MouseEvent e) // This listener is used to change the color of Editable JTextField to yellow when cursor entered 
+            {
+                if (j.isEditable()) 
+                {
                     ((JTextField) e.getSource()).setBorder(BorderFactory.createLineBorder(Color.decode("#f6ea80")));
                     ((JTextField) e.getSource()).setBackground(Color.decode("#f6ea80"));
                 }
             }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (j.isEditable()) {
+            public void mouseExited(MouseEvent e) // This listener is used to make it default white when cursor exited
+            {
+                if (j.isEditable()) 
+                {
                     ((JTextField) e.getSource()).setBorder(BorderFactory.createLineBorder(Color.lightGray));
                     ((JTextField) e.getSource()).setBackground(Color.white);
                 }
             }
         });
-        /*------------------------------------------------*/
 
-        j.addKeyListener(new KeyListener() {
+        /*--------------------KeyListener----------------------------*/
 
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
+        j.addKeyListener(new KeyAdapter() 
+        {
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (j.isEditable()) {
+            public void keyReleased(KeyEvent e) 
+            {
+                if (j.isEditable()) 
+                {
                     ((JTextField) e.getSource()).setForeground(Color.decode("#0c4"));
-                } else {
+                } 
+                else 
+                {
                     ((JTextField) e.getSource()).setForeground(Color.black);
                 }
             }
@@ -64,57 +69,71 @@ public class Panal extends javax.swing.JPanel {
         return j;
     }
     
-    public Panal() {
-        initComponents();
+    public Panal()
+    {
+        initComponents(); // this method is used to connect between GUI editor and java
+        
         /*------------------------main panal  -------------------------------------*/
+
         center = new JPanel();  //main panel
         center.setLayout(new GridLayout(3, 3));     //grid for 3*3 
         center.setBackground(Color.BLACK);
         setLayout(new BorderLayout());
         add(center);  //add main panel to frame 
 
-        boxes = new JTextField[9][9];
-        paneles = new JPanel[3][3];
+        boxes = new JTextField[9][9]; // Boxes are the JTextfields used in game
+        paneles = new JPanel[3][3]; // panels is the array of JPanel and per panel contain 9 boxes
         
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 3; i++)  // This loop is for add 9 panels and assign it black border
+        {
+            for (int j = 0; j < 3; j++) 
+            {
                 paneles[i][j] = new JPanel();
                 paneles[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-                paneles[i][j].setLayout(new GridLayout(3, 3));
+                paneles[i][j].setLayout(new GridLayout(3, 3)); // grid layout is used to add 9 textfields in grid pattern
                 center.add(paneles[i][j]);
             }
         }
-        /*------------------------text fildes in boxes-------------------------------------*/
 
-        for (int n = 0; n < 9; n++) {
-            for (int i = 0; i < 9; i++) {
+        /*------------------------text fieldes in boxes-------------------------------------*/
+
+        for (int n = 0; n < 9; n++) // This loop is for 81 textfirlds used in game for numbers
+        {
+            for (int i = 0; i < 9; i++) 
+            {
                 boxes[n][i] = newtextfield();
                 int fm = (n + 1) / 3;
-                if ((n + 1) % 3 > 0) {
+
+                if ((n + 1) % 3 > 0) 
+                {
                     fm++;
                 }
+
                 int cm = (i + 1) / 3;
-                if ((i + 1) % 3 > 0) {
+                if ((i + 1) % 3 > 0) 
+                {
                     cm++;
                 }
                 paneles[fm - 1][cm - 1].add(boxes[n][i]);   //add box to panel 
             }
         }
-        /*------------------------panal for buttons -------------------------------------*/
+        /*------------------------panal created to contain all buttons -------------------------------------*/
 
         bPanel = new JPanel();
-        bPanel.setBackground(Color.decode("#AABFFF"));
-        bPanel.setBorder(BorderFactory.createLineBorder(Color.black, 6, true));
+        bPanel.setBackground(Color.decode("#AABFFF")); // to assign blue color to the panel
+        bPanel.setBorder(BorderFactory.createLineBorder(Color.black, 6, true)); // 6 defines the width of the pixels
         bPanel.setLayout(new GridLayout(3, 2, 2, 10));
 
 
         /*------------------------new game button -------------------------------------*/
+        
         nBtn = new JButton("New Game");
         nbtn.setSize(20, 50);
-        nBtn.addActionListener(new ActionListener() {
+        nBtn.addActionListener(new ActionListener() 
+        {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 restgame();
                 Sudoku.newGame();
 
@@ -124,19 +143,29 @@ public class Panal extends javax.swing.JPanel {
         /*------------------------check game button -------------------------------------*/
         cBtn = new JButton("Check Game");
 
-        cBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < 9; i++) {
-                    for (int j = 0; j < 9; j++) {
-                        if (!boxes[i][j].isEditable()) {
+        cBtn.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                for (int i = 0; i < 9; i++) 
+                {
+                    for (int j = 0; j < 9; j++) 
+                    {
+                        if (!boxes[i][j].isEditable()) 
+                        {
                             continue;
-                        } else if (boxes[i][j].getText().equals(String.valueOf(grid[i][j]))) {
-                            boxes[i][j].setBackground(Color.decode("#C0DCD9"));
-                        } else if (boxes[i][j].getText().isEmpty()) {
+                        } 
+                        else if (boxes[i][j].getText().equals(String.valueOf(grid[i][j]))) 
+                        {
+                            boxes[i][j].setBackground(Color.decode("#C0DCD9")); // It makes the background of JTextbox to green of the value is correct
+                        } 
+                        else if (boxes[i][j].getText().isEmpty()) 
+                        {
                             boxes[i][j].setBackground(Color.WHITE);
                             continue;
-                        } else {
+                        } 
+                        else 
+                        {
                             boxes[i][j].setBackground(Color.red);
                         }
                     }
@@ -148,7 +177,7 @@ public class Panal extends javax.swing.JPanel {
         hardBtn = new JButton("Hard");
 
         hardBtn.addActionListener(new ActionListener() {
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
                 restgame();
                 Sudoku.setlevel(4);
@@ -159,7 +188,7 @@ public class Panal extends javax.swing.JPanel {
         midBtn = new JButton("Medium");
 
         midBtn.addActionListener(new ActionListener() {
-            @Override
+        
             public void actionPerformed(ActionEvent e) {
                 restgame();
                 Sudoku.setlevel(3);
@@ -171,7 +200,7 @@ public class Panal extends javax.swing.JPanel {
         easyBtn = new JButton("Easy");
 
         easyBtn.addActionListener(new ActionListener() {
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
                 restgame();
                 Sudoku.setlevel(2);
@@ -182,7 +211,7 @@ public class Panal extends javax.swing.JPanel {
         slove = new JButton("Solve");
 
         slove.addActionListener(new ActionListener() {
-            @Override
+            
             public void actionPerformed(ActionEvent e) 
             {
                     for (int i = 0; i < 9; i++) {
@@ -205,32 +234,46 @@ public class Panal extends javax.swing.JPanel {
 
     }
 
-    public void setarray(int[][] grid, int[][] temp) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+    public void setarray(int[][] grid, int[][] temp) // This method is used to obtain the grid and tempory grid created in Sudoku class
+    {
+        for (int i = 0; i < 9; i++) 
+        {
+            for (int j = 0; j < 9; j++) 
+            {
                 this.temp[i][j] = temp[i][j];
                 this.grid[i][j] = grid[i][j];
             }
         }
     }
 
-    public void setTextLable() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (this.temp[i][j] != 0) {
+    public void setTextLable() 
+    {
+        for (int i = 0; i < 9; i++) //This loop is used to make box green which already contains number
+        {
+            for (int j = 0; j < 9; j++) 
+            {
+                if (this.temp[i][j] != 0) 
+                {
                     boxes[i][j].setText(String.valueOf(this.temp[i][j]));
                     boxes[i][j].setEditable(false);
                     boxes[i][j].setBackground(Color.decode("#C0DCC0"));
-                } else {
+                } 
+                else 
+                {
                     boxes[i][j].setText("");
                 }
             }
         }
     }
 
-    public static void restgame() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+    public static void restgame() 
+    {
+        // This method is used to make the boxes as it is
+
+        for (int i = 0; i < 9; i++) 
+        {
+            for (int j = 0; j < 9; j++) 
+            {
                 boxes[i][j].setForeground(Color.black);
                 boxes[i][j].setEditable(true);
                 boxes[i][j].setBackground(Color.WHITE);
