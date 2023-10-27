@@ -13,7 +13,7 @@ public class Panal extends JPanel
     private static JTextField[][] boxes; // This boxes are for numbers
     private JPanel[][] paneles;
     private JPanel center, bPanel;
-    private JButton nBtn, cBtn, eBtn, hardBtn, midBtn, easyBtn, slove;
+    private JButton nBtn, cBtn, hardBtn, midBtn, easyBtn, slove;
     private int[][] temp = new int[9][9]; // The array to store temporary grid we created in Sudoku class
     private int[][] grid = new int[9][9]; // the array to store grid we created in Sudoku class
 
