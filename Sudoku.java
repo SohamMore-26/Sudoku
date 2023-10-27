@@ -9,8 +9,8 @@ public class Sudoku
 
     static JFrame frame; // Object of JFrame
     static Panal p; // Object is created of Panel class
-    private  static int[][] grid;
-    private static int[][] temp;
+    private  static int[][] grid; //stores solved sudoku 
+    private static int[][] temp; //stores unsolved sudoku
     private static Random ran = new Random(); // Random class generate a random number
     private static int level = 2; // Integer for level ( Default sey to the low level )
 
@@ -32,9 +32,9 @@ public class Sudoku
 
     public static ArrayList<Integer> getRandomNum() 
     {
-        ArrayList<Integer> numbers = new ArrayList<Integer>(); // A dynamic integer array is created
+        ArrayList<Integer> numbers = new ArrayList<Integer>(); // A dynamic integer list is created
 
-        for (Integer i = 1; i < 10; i++) // Loop to add 1 to 9 numbers in the array 'number'
+        for (Integer i = 1; i < 10; i++) // Loop to add 1 to 9 numbers in the arraylist 'number'
         {
             numbers.add(i);
         }

@@ -71,7 +71,6 @@ public class Panal extends JPanel
     
     public Panal()
     {
-        initComponents(); // this method is used to connect between GUI editor and java
         
         /*------------------------main panal  -------------------------------------*/
 
@@ -97,24 +96,31 @@ public class Panal extends JPanel
 
         /*------------------------text fieldes in boxes-------------------------------------*/
 
-        for (int n = 0; n < 9; n++) // This loop is for 81 textfirlds used in game for numbers
+        for (int n = 0; n < 9; n++) // Loop through rows of textfields (9 rows)
         {
-            for (int i = 0; i < 9; i++) 
+            for (int i = 0; i < 9; i++) // Loop through columns of textfields (9 columns)
             {
-                boxes[n][i] = newtextfield();
-                int fm = (n + 1) / 3;
+                boxes[n][i] = newtextfield(); // Create a new textfield and store it in the 2D array "boxes"
 
+                // Calculate the row group (fm) and column group (cm) for the current textfield
+                int fm = (n + 1) / 3; // Determine the current row group (divide row index by 3)
+        
+                // Check if the current row index is not divisible by 3 (i.e., not the first row in a group)
                 if ((n + 1) % 3 > 0) 
                 {
-                    fm++;
+                    fm++; // Increment the row group if the row is not the first in the group
                 }
+        
+                int cm = (i + 1) / 3; // Determine the current column group (divide column index by 3)
 
-                int cm = (i + 1) / 3;
+                // Check if the current column index is not divisible by 3 (i.e., not the first column in a group)
                 if ((i + 1) % 3 > 0) 
                 {
-                    cm++;
+                    cm++; // Increment the column group if the column is not the first in the group
                 }
-                paneles[fm - 1][cm - 1].add(boxes[n][i]);   //add box to panel 
+
+                // Add the current textfield (boxes[n][i]) to the corresponding panel (paneles[fm - 1][cm - 1])
+                paneles[fm - 1][cm - 1].add(boxes[n][i]);
             }
         }
         /*------------------------panal created to contain all buttons -------------------------------------*/
@@ -151,7 +157,7 @@ public class Panal extends JPanel
                 {
                     for (int j = 0; j < 9; j++) 
                     {
-                        if (!boxes[i][j].isEditable()) 
+                        if (!boxes[i][j].isEditable()) // Checks if the box is editable or not
                         {
                             continue;
                         } 
@@ -281,15 +287,4 @@ public class Panal extends JPanel
         }
     }
 
-    
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        setLayout(null);
-    }// </editor-fold>//GEN-END:initComponents
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }
